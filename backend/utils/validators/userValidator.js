@@ -5,36 +5,36 @@ const validateLogin = celebrate({
   body: Joi.object().keys({
     email: Joi.string().required().email(),
     password: Joi.string().required(),
-  }),
+  }).required(),
 });
 
 const validateRegister = celebrate({
   body: Joi.object().keys({
     email: Joi.string().required().email(),
     password: Joi.string().required(),
-    name: Joi.string().min(2).max(30),
-    about: Joi.string().min(2).max(30),
-    avatar: Joi.string().pattern(urlRegex),
-  }),
+    name: Joi.string().required().min(2).max(30),
+    about: Joi.string().required().min(2).max(30),
+    avatar: Joi.string().required().pattern(urlRegex),
+  }).required(),
 });
 
 const validateUserId = celebrate({
   params: Joi.object().keys({
     id: Joi.string().required().hex().length(24),
-  }),
+  }).required(),
 });
 
 const validateUserInfo = celebrate({
   body: Joi.object().keys({
-    name: Joi.string().min(2).max(30),
-    about: Joi.string().min(2).max(30),
-  }),
+    name: Joi.string().required().min(2).max(30),
+    about: Joi.string().required().min(2).max(30),
+  }).required(),
 });
 
 const validateAvatar = celebrate({
   body: Joi.object().keys({
-    avatar: Joi.string().pattern(urlRegex),
-  }),
+    avatar: Joi.string().required().pattern(urlRegex),
+  }).required(),
 });
 
 module.exports = {

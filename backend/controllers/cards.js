@@ -37,7 +37,8 @@ const deleteCard = (req, res, next) => {
       } else {
         throw new ForbiddenError('Попытка удалить чужую карточку');
       }
-    });
+    })
+    .catch(next);
 };
 
 const likeCard = (req, res, next) => {

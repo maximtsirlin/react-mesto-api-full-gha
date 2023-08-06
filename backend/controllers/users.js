@@ -44,13 +44,14 @@ const updateUser = (req, res, next) => {
 const updateAvatar = (req, res, next) => {
   const { avatar } = req.body;
   const id = req.user._id;
-  User.findByIdAndUpdate(id, { avatar }, { new: true })
+  User.findByIdAndUpdate(id, { avatar }, { new: true, runValidators: true })
     .then((user) => {
       if (!user) throw new NotFoundError('Пользователь с указанным _id не найден.');
       res.status(200).send(user);
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
+        // Mongoose validation error from the database
         next(new BadRequestError('Переданы некорректные данные при обновлении аватара.'));
       } else {
         next(err);
