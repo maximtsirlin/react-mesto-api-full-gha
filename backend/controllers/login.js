@@ -26,8 +26,6 @@ const createUser = (req, res, next) => {
       name, about, avatar, email, password: hash,
     }))
     .then((user) => {
-      // eslint-disable-next-line no-param-reassign
-      user.password = undefined;
       res.status(201).send(user);
     })
     .catch((err) => {
