@@ -9,7 +9,7 @@
 
 ## Ссылки на проект
 
-IP-адрес 158.160.72.154
+IP 158.160.72.154
 
 Frontend https://mesto-m-front.nomoreparties.co/
 
