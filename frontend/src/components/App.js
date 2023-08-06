@@ -197,7 +197,7 @@ function App(props) {
   const handleCardDelete = (card) => {
     setIsLoading(true);
     api
-      .deleteCard('hello')
+      .deleteCard(card._id)
       .then((newCard) => {
         const newCards = cards.filter((c) =>
           c._id === card._id ? "" : newCard

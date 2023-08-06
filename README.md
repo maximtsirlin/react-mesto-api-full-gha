@@ -9,8 +9,8 @@
 
 ## Ссылки на проект
 
-IP-адрес x.x.x.x
+IP 158.160.72.154
 
-Frontend https://...
+Frontend https://mesto-m-front.nomoreparties.co/
 
-Backend https://...
+Backend https://mesto-maxim.nomoreparties.co/
