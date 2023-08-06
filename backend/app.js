@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const { errors } = require('celebrate');
 const cookieParser = require('cookie-parser');
-
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 const userRoutes = require('./routes/users');
 const cardRoutes = require('./routes/cards');
 const authRoutes = require('./routes/auth');
@@ -20,13 +20,14 @@ app.use(cookieParser());
 
 mongoose.connect(MONGODB);
 
+app.use(requestLogger);
 app.use('/', authRoutes);
 app.use('/users', auth, userRoutes);
 app.use('/cards', auth, cardRoutes);
 app.use('*', (req, res, next) => {
   next(new NotFoundError('Маршрут не найден'));
 });
-
+app.use(errorLogger);
 app.use(errors());
 app.use(errorHandler);
 
