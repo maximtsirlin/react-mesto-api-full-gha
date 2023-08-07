@@ -25,22 +25,21 @@ const createCard = (req, res, next) => {
 };
 
 const deleteCard = (req, res, next) => {
-  Card.findByIdAndRemove(req.params.id)
-    .then((card) => {
-      if (!card) {
-        throw new NotFoundError('Карточка с указанным _id не найдена.');
-      }
-      if (card && card.owner.equals(req.user._id)) {
-        Card.deleteOne(card)
-          .then(() => res.status(200).send(card))
-          .catch(next);
-      } else {
-        throw new ForbiddenError('Попытка удалить чужую карточку');
-      }
-    })
-    .catch((err) => {
-      next(err);
-    });
+  Card.findById(req.params.id)
+  .populate(['likes', 'owner'])
+  .then((card) => {
+    if (!card) {
+      throw new NotFoundError('Запрашиваемая карточка места не найдена');
+    }
+    if (card && card.owner.equals(req.user._id)) {
+      Card.deleteOne(card)
+        .then(() => res.status(200).send(card))
+        .catch(next);
+    } else {
+      throw new ForbiddenError('У Вас нет прав для совершения данного действия');
+    }
+  })
+  .catch(next);
 };
 
 const likeCard = (req, res, next) => {
